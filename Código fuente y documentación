@@ -1,0 +1,99 @@
+class Participante:
+    def __init__(self, nombre, nacionalidad):
+        self.__nombre = nombre #Aqui se aplica el polimorfismo gracias al uso del doble guion "__"
+        self.__nacionalidad = nacionalidad
+
+    def get_nombre(self):
+        return self.__nombre
+
+    def get_nacionalidad(self):
+        return self.__nacionalidad
+
+    def realizarActividad(self): # Este metodo es el que sera sobreescrito por las clases hijas
+        print("Esta realizando la actividad")
+
+    def mostrar_datos(self): # Este metodo es el que sera sobreescrito por las clases hijas
+        print("Nombre:", self.__nombre)
+        print("Nacionalidad:", self.__nacionalidad)        
+
+class Jugador(Participante): # Aqui se aplica la herencia para la clase hija
+    def __init__(self, posicion, nombre, nacionalidad):
+        super().__init__(nombre, nacionalidad) # Se llama al constructor de la clase padre
+        self.__posicion = posicion
+
+    def mostrar_datos(self): # Sobrescritura del metodo
+        super().mostrar_datos()
+        print("Posicion:", self.__posicion)
+
+    def realizarActividad(self): # Sobrescritura del metodo
+        print("Entrenando disparos al arco")
+
+class Entrenador(Participante): # Aqui se aplica la herencia para la clase hija
+    def __init__(self, estrategia, nombre, nacionalidad): 
+        super().__init__(nombre, nacionalidad) # Se llama al constructor de la clase padre
+        self.__estrategia = estrategia
+
+    def mostrar_datos(self): # Sobrescritura del metodo
+        super().mostrar_datos()
+        print("Estrategia:", self.__estrategia)
+
+    def realizarActividad(self): # Sobrescritura del metodo
+        print("Planificando estategia del partido")
+
+class Arbitro(Participante): # Aqui se aplica la herencia para la clase hija
+    def __init__(self, categoria, nombre, nacionalidad):
+        super().__init__(nombre, nacionalidad) # Se llama al constructor de la clase padre
+        self.__categoria = categoria
+
+    def mostrar_datos(self): # Sobrescritura del metodo
+        super().mostrar_datos()
+        print("Categoria:", self.__categoria)
+
+    def realizarActividad(self): # Sobrescritura del metodo
+        print("Supervisando reglas de encuentro")
+
+# Clases de desafio
+
+class Medico(Participante): # Aqui se aplica la herencia para la clase hija
+    def __init__(self, especialidad, nombre, nacionalidad):
+        super().__init__(nombre, nacionalidad) # Se llama al constructor de la clase padre
+        self.__especialidad = especialidad
+    
+    def mostrar_datos(self): # Sobrescritura del metodo
+        super().mostrar_datos()
+        print("Especialidad:", self.__especialidad)
+
+    def realizarActividad(self): # Sobrescritura del metodo
+        print("Supervisando el estado de los jugadores")
+
+class Comentarista(Participante): # Aqui se aplica la herencia para la clase hija
+    def __init__(self, tipo, nombre, nacionalidad):
+        super().__init__(nombre, nacionalidad) # Se llama al constructor de la clase padre
+        self.__tipo = tipo
+    
+    def mostrar_datos(self): # Sobrescritura del metodo
+        super().mostrar_datos()
+        print("Tipo:", self.__tipo)
+
+    def realizarActividad(self): # Sobrescritura del metodo
+        print("Comentando el estado del partido")
+
+# Aqui creamos objetos para cada una de las clases hijas
+jugador = Jugador("Delantero", "Lionel Messi", "Argentina")
+entrenador = Entrenador("Ofensiva", "Lionel Scaloni", "Argentina")
+arbitro = Arbitro("FIFA", "Szymon Marciniak", "Polonia")
+medico = Medico("Cardiologo", "Gregory House", "Estados Unidos")
+comentarista = Comentarista("Deportivo", "Juan Cabezas", "Mexico")
+
+# Se aplica el polimorfismo almacenando los objetos en una lista
+participantes = [jugador, entrenador, arbitro, medico, comentarista]
+
+print("Participantes del Mundial\n")
+
+# Se recorre la lista con un for
+for participante in participantes:
+    print(type(participante).__name__ + ":")
+    # Aqui tambien aplicamos polimorfismo haciendo que se ejecute el mismo metodo pero de forma diferente dependiento de la clase
+    participante.mostrar_datos()
+    participante.realizarActividad()
+    print()
